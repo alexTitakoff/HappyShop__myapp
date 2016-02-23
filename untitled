@@ -1,0 +1,67 @@
+
+
+<?php 
+error_reporting(E_ALL & ~E_DEPRECATED); 
+ini_set('display_errors', 'On'); 
+restore_error_handler (); 
+
+
+?> 
+<?php 
+
+include ("db_connect.php");
+
+?>
+
+
+
+
+<?php 
+
+$slct = "SELECT * FROM `db_shop`.`table_poducts`;";
+$assoc_res = $dbh->query($slct);
+$dbh = NULL;
+$assoc_res->fetchColumn(); 
+
+  						// проверка на сущесвтование данных
+if ($assoc_res->fetchColumn() > 0) {
+ $row = $assoc_res->fetch(PDO::FETCH_ASSOC);
+
+
+ do {
+
+  ?>
+  <div class="col-sm-4">
+   <div class="product-image-wrapper">
+    <div class="single-products">
+     <div class="productinfo text-center">
+      <div class="img_prod">	<img src="images/phone/Lenovo1.jpeg" alt="" /></div>
+
+
+      <h2>2000p</h2>
+      <p><?php echo $row['title']; ?></p>
+      <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+    </div>
+    <div class="product-overlay">
+      <div class="overlay-content">
+       <h2>2000р</h2>
+       <p>Easy Polo Black Edition</p>
+       <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+     </div>
+   </div>
+ </div>
+ <div class="choose">
+   <ul class="nav nav-pills nav-justified">
+    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+  </ul>
+</div>
+</div>
+</div>
+
+<?php  							
+
+} 
+while ($row = $assoc_res->fetch(PDO::FETCH_ASSOC));
+} 
+?>
